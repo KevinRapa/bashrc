@@ -13,7 +13,6 @@ alias install="sudo apt-get install"
 alias update="sudo apt-get update; galliumos-update"
 alias todo="sub ~/Docs/school/TODO.txt"
 alias sched="sub ~/Docs/Schedule.txt"
-alias q='echo New profile?; select name in CHROMA GREEN AMBER COMMODORE "IBM Dos"; do (~/Applications/retro-term/cool-retro-term --fullscreen --profile "$name" &); break; done; exit'
 alias zork="(chromium-browser https://www.draw.io/#G1qkz-E8dEXbprS60UP2ONoZyyTaIbIufn &> /dev/null &) && frotz ~/Applications/Roms/ZORK/Zork1/DATA/ZORK1.DAT"
 # enable color support of ls and also add handy aliases
 eval "$(dircolors -b)"
@@ -155,4 +154,15 @@ function py() {
 
 function cs() {
     cd ${1} && ls
+}
+
+function q() {
+    echo "New profile?"
+
+    select name in CHROMA GREEN AMBER COMMODORE "IBM Dos"; do 
+        ~/Applications/retro-term/cool-retro-term --fullscreen --profile "$name" --workdir "${HOME}/.themes/${name}" &
+        break
+    done
+
+    exit
 }
