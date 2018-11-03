@@ -2,6 +2,11 @@ function _code() {
 	[[ $? = '1' ]] && echo -e "${RD}" || echo -e "${GRN}"
 }
 
+function _HEADER() {
+	date
+	echo
+}
+
 HTML_PROMPT="\n\[${BLD}\]<\[${OR}\]input"\
 "\[${GRN}\] time\[${DEF}\]='\[${YLW}\]\D{%l:%M}\[${DEF}\]'"\
 "\[${GRN}\] bat\[${DEF}\]=\$(_bat)"\

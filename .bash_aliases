@@ -159,7 +159,7 @@ function cs() {
 function q() {
     echo "New profile?"
 
-    select name in CHROMA GREEN AMBER COMMODORE "IBM Dos"; do 
+    select name in CHROMA APPLE AMBER COMMODORE "IBM Dos"; do 
         ~/Applications/retro-term/cool-retro-term --fullscreen --profile "$name" --workdir "${HOME}/.themes/${name}" &
         break
     done
