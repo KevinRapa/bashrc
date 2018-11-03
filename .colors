@@ -1,0 +1,54 @@
+#!/bin/bash
+
+export EC="\e[0m" 
+export BLD="\e[01m" 
+export RD="\e[31m" 
+export CY="\e[36m"
+export GRN="\e[32m" 
+export BRWN="\e[33m"
+export YLW="\e[93m"
+export PRPL="\e[35m"
+export WHT="\e[39m"
+export HDN="\e[8m"
+export BLU="\e[34m"
+export OR="\e[38;5;202m"
+export DEF="\e[39m"
+
+function B() {
+	echo -e $BLD"$@"$EC
+}
+export -f B
+
+function Br() {
+	echo -e $BRWN"$@"$EC
+}
+export -f Br
+
+function Bl() {
+	echo -e "\e[30m$@"
+}
+
+function G() {
+	echo -e $GRN"$@"$EC
+}
+export -f G
+
+function P() {
+	echo -e $PRPL"$@"$EC
+}
+export -f P
+
+function R() {
+	echo -e $RD"$@"$EC
+}
+export -f R
+
+function Y() {
+	echo -e $YLW"$@"$EC
+}
+export -f Y
+
+function C() {
+	echo -e $CY"$@"$EC
+}
+export -f C
