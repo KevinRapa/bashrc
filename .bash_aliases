@@ -11,17 +11,12 @@ alias eng="setxkbmap us"
 alias search="sudo apt-cache search"
 alias install="sudo apt-get install"
 alias update="sudo apt-get update; galliumos-update"
-alias todo="sub ~/Docs/school/TODO.txt"
-alias sched="sub ~/Docs/Schedule.txt"
+alias todo="vim ~/Docs/school/TODO.txt"
+alias sched="vim ~/Docs/Schedule.txt"
 alias zork="(chromium-browser https://www.draw.io/#G1qkz-E8dEXbprS60UP2ONoZyyTaIbIufn &> /dev/null &) && frotz ~/Applications/Roms/ZORK/Zork1/DATA/ZORK1.DAT"
 # enable color support of ls and also add handy aliases
 eval "$(dircolors -b)"
-alias ls='ls -F'
 alias grep='grep --color=auto'
-
-function vim() {
-    (~/Applications/retro-term/cool-retro-term --fullscreen --workdir ${PWD} -e /usr/bin/vim ${1} &) &> /dev/null
-}
 
 function s() {
     (xbacklight -dec ${1:-1} &)
@@ -92,13 +87,7 @@ function web() {
                     https://yle.fi/uutiset/osasto/selkouutiset/
                     https://yle.fi/uutiset'
             ;;
-        v)
-            shift
-            tmp=$IFS; IFS='+'
-            local sites="https://www.youtube.com/results?search_query=$*"
-            IFS=$tmp
-            ;;
-        *) 
+       *) 
             tmp=$IFS; IFS='+'
             local sites="https://www.google.com/${1:+search?q=$*&oq=$*}"
             IFS=$tmp
@@ -144,22 +133,28 @@ function work() {
     [[ -n "$1" ]] && cd ${1^}*
     ls
 }
+function upload() {
+	echo "DID YOU MAKE SURE THERE ARE NO UPDATES YOU WILL OVERWRITE??"
+	local lcl="/home/hedera/Docs/school/work/Soft/CMSC447-Project/html"
+	local srvr="ec2-user@rr.huganir.com:/var/www/html"
+	for fl in $@; do
+		scp "${lcl}/${fl}" "${srvr}/${fl}"
+	done 
+}
+alias conn="ssh ec2-user@rr.huganir.com"
 alias proj="work Soft; cd CMSC*/html; sub *.html css/* js/*"
 alias OM="work Soft; cd CMSC*/html; (chromium-browser operationsManager.html &) &> /dev/null"
 alias OC="work Soft; cd CMSC*/html; (chromium-browser operationsChief.html &) &> /dev/null"
 
-function py() {
-    mv "${1}" "${1%.java}.py" 
-}
-
 function cs() {
-    cd ${1} && ls
+    cd ${1} && ls --color=always | sed 's/^/    /'
 }
+alias cd=cs
 
 function q() {
     echo "New profile?"
 
-    select name in CHROMA APPLE AMBER COMMODORE "IBM Dos"; do 
+    select name in CHROMA APPLE AMBER COMMODORE "IBM Dos" DOS; do 
         ~/Applications/retro-term/cool-retro-term --fullscreen --profile "$name" --workdir "${HOME}/.themes/${name}" &
         break
     done

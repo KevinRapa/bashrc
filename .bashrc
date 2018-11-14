@@ -44,27 +44,9 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-
-
-function _bat() {
-	local life=$(upower -i "/org/freedesktop/UPower/devices/battery_BAT0" | grep -o -m 1 '[0-9]*%')
-	
-	if [[ -z "$1" ]]; then		
-		case ${life} in
-			?%|1*) 	echo -ne ${RD}  ;;
-			[23]*) 	echo -ne ${OR}  ;;
-			[45]*) 	echo -ne ${YLW} ;;
-			[67]*) 	echo -ne '\e[38;5;154m' ;; # green-yellow 
-			*)      echo -ne ${GRN} ;;
-		esac
-	fi
-
-	echo -en "${life%\%}${DEF}"
-}
-
 source "${HOME}/.colors"
 source "${HOME}/.bash_aliases" 
 source "theme.sh"
-cd "${HOME}"
+cd "${HOME}" &> /dev/null
 _HEADER
 alias clear="clear && _HEADER"
