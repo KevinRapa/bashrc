@@ -1,7 +1,5 @@
 set nu
-highlight LineNr cterm=bold ctermfg=Black ctermbg=Gray
 
-highlight ColorColumn ctermbg=Magenta
 set textwidth=80
 set colorcolumn=+1
 set so=7
@@ -46,9 +44,20 @@ nore <C-Down> 5<Down>
 nore <A-Up> gg
 nore <A-Down> G
 
+inoremap <A-Left> <Esc>^i
+inoremap <A-Right> <Esc>$i
+inoremap <C-Left> <Esc>bi
+inoremap <C-Right> <Esc>wwi
+inoremap <C-Up> <Esc>5<Up>i
+inoremap <C-Down> <Esc>5<Down>i
+inoremap <A-Up> <Esc>ggi
+inoremap <A-Down> <Esc>Gi
+
 set timeoutlen=1000 ttimeoutlen=0
 
 " Stuff for status line
 set laststatus=2
-hi StatusLine ctermfg=Gray
-set statusline=[%n]\ %f\ \ \ \ Line\ %l/%L
+set statusline=[%n]\ %f\ \ \ \ %L\ Lines
+
+syntax enable
+colorscheme monokai
