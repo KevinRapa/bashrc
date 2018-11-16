@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias rc="vim ~/.bashrc"
+alias rc="vim ~/.bashrc ~/.vimrc"
 alias al="vim ~/.bash_aliases"
 alias a='amixer -q -D pulse sset Master 10%-'
 alias d='amixer -q -D pulse sset Master 10%+'
@@ -11,12 +11,14 @@ alias eng="setxkbmap us"
 alias search="sudo apt-cache search"
 alias install="sudo apt-get install"
 alias update="sudo apt-get update; galliumos-update"
-alias todo="vim ~/Docs/school/TODO.txt"
-alias sched="vim ~/Docs/Schedule.txt"
 alias zork="(chromium-browser https://www.draw.io/#G1qkz-E8dEXbprS60UP2ONoZyyTaIbIufn &> /dev/null &) && frotz ~/Applications/Roms/ZORK/Zork1/DATA/ZORK1.DAT"
 # enable color support of ls and also add handy aliases
 eval "$(dircolors -b)"
 alias grep='grep --color=auto'
+
+function vim() {
+    xfce4-terminal --fullscreen --working-directory=${PWD} -x /usr/bin/vim ${1}
+} &> /dev/null
 
 function s() {
     (xbacklight -dec ${1:-1} &)
@@ -141,8 +143,7 @@ function upload() {
 		scp "${lcl}/${fl}" "${srvr}/${fl}"
 	done 
 }
-alias conn="ssh ec2-user@rr.huganir.com"
-alias proj="work Soft; cd CMSC*/html; sub *.html css/* js/*"
+alias proj="work Soft; cd CMSC*/html; vim *.html css/* js/*"
 alias OM="work Soft; cd CMSC*/html; (chromium-browser operationsManager.html &) &> /dev/null"
 alias OC="work Soft; cd CMSC*/html; (chromium-browser operationsChief.html &) &> /dev/null"
 
