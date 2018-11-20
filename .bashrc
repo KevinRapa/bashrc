@@ -12,7 +12,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
+HISTSIZE=500
 HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
@@ -38,7 +38,7 @@ stty -ixon
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
 	if [ -f /usr/share/bash-completion/bash_completion ]; then
-		. /usr/share/bash-completion/bash_completion
+		    . /usr/share/bash-completion/bash_completion
 	elif [ -f /etc/bash_completion ]; then
 		. /etc/bash_completion
 	fi
@@ -46,7 +46,10 @@ fi
 
 source "${HOME}/.colors"
 source "${HOME}/.bash_aliases" 
-source "theme.sh"
+
+if source "theme.sh"; then
+    _HEADER
+    alias clear="clear && _HEADER"
+fi
+
 cd "${HOME}" &> /dev/null
-_HEADER
-alias clear="clear && _HEADER"

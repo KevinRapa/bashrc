@@ -1,7 +1,7 @@
 #!/bin/bash
 
-alias rc="vim ~/.bashrc ~/.vimrc"
-alias al="vim ~/.bash_aliases"
+alias rc="vim ~/.bashrc ~/.vimrc ~/.bash_aliases"
+alias c=clear
 alias a='amixer -q -D pulse sset Master 10%-'
 alias d='amixer -q -D pulse sset Master 10%+'
 alias tog='amixer -q -D pulse sset Master toggle'
@@ -12,12 +12,13 @@ alias search="sudo apt-cache search"
 alias install="sudo apt-get install"
 alias update="sudo apt-get update; galliumos-update"
 alias zork="(chromium-browser https://www.draw.io/#G1qkz-E8dEXbprS60UP2ONoZyyTaIbIufn &> /dev/null &) && frotz ~/Applications/Roms/ZORK/Zork1/DATA/ZORK1.DAT"
+alias pushdot="git add ~/.bashrc ~/.bash_aliases ~/.themes ~/.vimrc ~/.vim; git commit -m COMMIT; git push"
 # enable color support of ls and also add handy aliases
 eval "$(dircolors -b)"
 alias grep='grep --color=auto'
 
 function vim() {
-    xfce4-terminal --fullscreen --working-directory=${PWD} -x /usr/bin/vim ${1}
+    xfce4-terminal --fullscreen --working-directory=${PWD} -x /usr/bin/vim -p $@ &
 } &> /dev/null
 
 function s() {
@@ -134,6 +135,8 @@ function work() {
     cd "${HOME}/Docs/school/work"
     [[ -n "$1" ]] && cd ${1^}*
     ls
+    cd CMSC* 2> /dev/null
+    cd html/ 2> /dev/null
 }
 function upload() {
 	echo "DID YOU MAKE SURE THERE ARE NO UPDATES YOU WILL OVERWRITE??"
@@ -143,9 +146,6 @@ function upload() {
 		scp "${lcl}/${fl}" "${srvr}/${fl}"
 	done 
 }
-alias proj="work Soft; cd CMSC*/html; vim *.html css/* js/*"
-alias OM="work Soft; cd CMSC*/html; (chromium-browser operationsManager.html &) &> /dev/null"
-alias OC="work Soft; cd CMSC*/html; (chromium-browser operationsChief.html &) &> /dev/null"
 
 function cs() {
     cd ${1} && ls --color=always | sed 's/^/    /'
@@ -153,10 +153,9 @@ function cs() {
 alias cd=cs
 
 function q() {
-    echo "New profile?"
-
     select name in CHROMA APPLE AMBER COMMODORE "IBM Dos" DOS; do 
-        ~/Applications/retro-term/cool-retro-term --fullscreen --profile "$name" --workdir "${HOME}/.themes/${name}" &
+        ~/Applications/retro-term/cool-retro-term --fullscreen --profile \
+                "$name" --workdir "${HOME}/.themes/${name}" &
         break
     done
 
