@@ -6,13 +6,13 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,[,]
 set cursorline
 set mouse=a
-
+    
 " Tabs and indentation
 set softtabstop=4
 set expandtab
 set shiftwidth=4
 set autoindent
-set smartindent
+set paste
 
 " Text
 set textwidth=80
@@ -27,20 +27,42 @@ set hidden
 """""""""""""""""""""""""""""""
 " MAPPINGS
 """""""""""""""""""""""""""""""
-inoremap {<Enter> {<Esc>o}<Esc>O
-inoremap " ""<Left>
-inoremap ( ()<Left>
-inoremap [ []<Left>
-inoremap ' ''<Left>
 inoremap <C-x> <Esc>
-inoremap <C-z> <Esc>
+nore <C-h> :%s///<Left><Left>
+inoremap <C-h> <Esc>:%s///<Left><Left>
+inoremap <C-c> <C-n>
+
+" Leader mappings
+inoremap <leader><leader>[ {<CR>}<Esc>O<Tab>
+inoremap <leader><leader>] {<CR>}<Esc>O<Tab>
+inoremap <leader><leader>9 ()<Space>{<CR><CR>}<Up><Up>
+inoremap <leader><leader>0 ()<Space>{<CR><CR>}<Up><Up>
+inoremap <leader>9 ()<Left>
+inoremap <leader>0 ()<Left>
+inoremap <leader>[ []<Left>
+inoremap <leader>] []<Left>
+inoremap <leader>' ''<Left>
+inoremap <leader>c <Esc><Right>cw
+inoremap <leader>- ->
 
 " Map back-quote to various multiline comment styles.
-au FileType c,javascript,cpp inoremap ` /*<Enter><Space>*/<Esc>O*<Space>
-au FileType python inoremap ` """<Esc>o"""<Esc>O<Tab>
-au FileType html inoremap ` <!-- --><Esc>bhi | setlocal softtabstop=2 | setlocal shiftwidth=2 | inoremap < <><Left>
-au FileType sh inoremap ` #<Enter>#<Enter>#<Enter><Up><Space>
-au FileType css inoremap ` /*<space><space>*/<C-left><left>
+aug webbuf
+    au!
+    au FileType javascript inoremap <leader>f (function() {<CR>})();<Esc>O<Tab>
+    au FileType html inoremap ` <!-- --><Esc>bhi 
+    au FileType html setlocal softtabstop=2 | setlocal shiftwidth=2 
+    au FileType css inoremap ` /*<space><space>*/<C-left><left>
+aug END
+
+aug pybuf
+    au!
+    au FileType python inoremap ` """<Esc>o"""<Esc>O<Tab>
+aug END
+    
+aug shbuf
+    au!
+    au FileType sh inoremap <leader>' ""<Left> | inoremap ` ${}<Left>
+aug END
 
 " Navigation
 nore <Tab> gt
@@ -54,16 +76,14 @@ nore <C-Down> 5<Down>
 nore <A-Up> gg
 nore <A-Down> G
 
-inoremap <A-Right> <Esc>$i
+inoremap <A-Right> <Esc>A
+inoremap <A-Left> <Esc>^i
 inoremap <C-Left> <Esc>bi
 inoremap <C-Right> <Esc>wwi
 inoremap <C-Up> <Esc>5<Up>i
 inoremap <C-Down> <Esc>5<Down>i
 inoremap <A-Up> <Esc>ggi
 inoremap <A-Down> <Esc>Gi
-
-" Leader mappings
-inoremap <leader>c <Esc><right>cw
 
 command Cheat !cat ~/Docs/vimhelp.txt
 
