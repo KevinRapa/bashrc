@@ -10,9 +10,9 @@ set mouse=a
 " Tabs and indentation
 set softtabstop=4
 set expandtab
+set tabstop=4
 set shiftwidth=4
 set autoindent
-set paste
 
 " Text
 set textwidth=80
@@ -84,8 +84,6 @@ inoremap <C-Up> <Esc>5<Up>i
 inoremap <C-Down> <Esc>5<Down>i
 inoremap <A-Up> <Esc>ggi
 inoremap <A-Down> <Esc>Gi
-
-command Cheat !cat ~/Docs/vimhelp.txt
 
 """""""""""""""""""""""""""""
 " UI
